@@ -1,11 +1,12 @@
 package src;
 
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Point;
-import sun.java2d.loops.DrawPolygons;
+import java.awt.Label;
+import java.lang.Double;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -19,30 +20,55 @@ import sun.java2d.loops.DrawPolygons;
  */
 public class DrawPlane extends javax.swing.JPanel {
 
+    Label prismAngleValue;
+    Label impactAngleValue;
     /**
      * Creates new form DrawPlane
      */
     int triangleXPoints[];
     int triangleYPoints[];
     
+    int inputLightXPoints[];
+    int inputLightYPoints[];
+    
+    
     int triangleWidth;
+    double prismAngle;
+    
+    double impactAngle;
     
     public DrawPlane() {
-        this.triangleWidth = 200;
         initComponents();
         
         triangleXPoints = new int[4];
         triangleYPoints = new int[4];
+        inputLightXPoints = new int[2];
+        inputLightYPoints = new int[2];
+        
         setBackground(Color.black);
+    }
+    
+    public void setPrismAngleOutputLabel(Label p){
+        prismAngleValue = p;
+    }
+    
+    public void setImpactAngleOutputLabel(Label p){
+        impactAngleValue = p;
     }
     
     @Override
     public void paint(Graphics g){
         super.paint(g);
         this.setBaseWidth();
-        
         g.setColor(Color.GREEN);
         g.fillPolygon(triangleXPoints, triangleYPoints, 3);
+        
+        this.setInputLight();
+        
+        Graphics2D g2d = (Graphics2D)g;
+        g2d.setStroke(new BasicStroke(10));
+        g2d.setColor(Color.white);
+        g2d.drawLine(inputLightXPoints[0], inputLightYPoints[0], inputLightXPoints[1], inputLightYPoints[1]);
     }
     
     private void setBaseWidth(){
@@ -52,11 +78,28 @@ public class DrawPlane extends javax.swing.JPanel {
         triangleYPoints[2] = 400;
         triangleXPoints[1] = triangleXPoints[0] - triangleWidth / 2;
         triangleXPoints[2] = triangleXPoints[0] + triangleWidth / 2;
+        
+        prismAngle = Math.atan((double)triangleWidth / 600);
+        prismAngleValue.setText(String.format("%.2f", 2 * Math.toDegrees(prismAngle)) + "°");
+//        System.err.print(prismAngle + "\n");
+    }
+    
+    private void setInputLight(){
+        inputLightYPoints[0] = 250;
+        inputLightXPoints[0] = 350 - triangleWidth / 4;
+        inputLightXPoints[1] = inputLightXPoints[0] - (int)(300 * Math.sin(prismAngle + impactAngle));
+        inputLightYPoints[1] = inputLightYPoints[0] + (int)(300 * Math.cos(prismAngle + impactAngle));
+        
     }
     
     public void setTriangleWidth(int value){
-        triangleWidth = value;
+       triangleWidth = value;
        repaint();
+    }
+    
+    public void setImpactAngle(double value){
+        impactAngle = Math.toRadians(value);
+        repaint();
     }
    
 
