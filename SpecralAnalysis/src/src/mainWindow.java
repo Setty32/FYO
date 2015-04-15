@@ -52,6 +52,8 @@ public class mainWindow extends javax.swing.JFrame {
         {
             System.err.println("Error");
         }
+        drawPlane1.getLines(neonSpectrum);
+        
         TriangleWidth.setMinimum(100);
         TriangleWidth.setMaximum(600);
         TriangleWidth.setValue(200);

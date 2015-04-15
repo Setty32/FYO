@@ -18,7 +18,7 @@ public class Emittor {
     
     private static List<SpectralLine> GetDataFromFile(String fileName) throws Exception
     {
-        FileInputStream in = new FileInputStream("hydrogen.txt");
+        FileInputStream in = new FileInputStream(fileName);
         Scanner input = new Scanner(in);
 
         List<SpectralLine> result = new ArrayList<SpectralLine>();
@@ -47,7 +47,7 @@ public class Emittor {
         {
             SpectralLine s = list.get(i);
             s.wavelength /= 10.0f;
-            s.n = s.wavelength / 350.0f * 1.6f;
+            s.n = 500.0f * 1.6f / s.wavelength ;
         }
     }
     
@@ -114,15 +114,15 @@ public class Emittor {
         return result;
     }
     
-     public static void main(String args[]) {
-        try
-        {
-            List<SpectralLine> a = Emittor.GetHydrogen();
-            int x = 12;
-        } catch(Exception e)
-        {
-        }
-        
-    }
+//     public static void main(String args[]) {
+//        try
+//        {
+//            List<SpectralLine> a = Emittor.GetHydrogen();
+//            int x = 12;
+//        } catch(Exception e)
+//        {
+//        }
+//        
+//    }
     
 }

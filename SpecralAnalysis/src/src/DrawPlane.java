@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Label;
 import java.lang.Double;
+import java.util.List;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -22,6 +23,7 @@ public class DrawPlane extends javax.swing.JPanel {
 
     Label prismAngleValue;
     Label impactAngleValue;
+    
     /**
      * Creates new form DrawPlane
      */
@@ -31,11 +33,15 @@ public class DrawPlane extends javax.swing.JPanel {
     int inputLightXPoints[];
     int inputLightYPoints[];
     
+    List<SpectralLine> lines;
+    
     
     int triangleWidth;
     double prismAngle;
     
     double impactAngle;
+    
+    //c = omega / k = lambda / T
     
     public DrawPlane() {
         initComponents();
@@ -56,12 +62,16 @@ public class DrawPlane extends javax.swing.JPanel {
         impactAngleValue = p;
     }
     
+    public void getLines(List<SpectralLine> in){
+        lines = in;
+    }
+    
     @Override
     public void paint(Graphics g){
         super.paint(g);
         this.setBaseWidth();
         g.setColor(Color.GREEN);
-        g.fillPolygon(triangleXPoints, triangleYPoints, 3);
+        g.drawPolygon(triangleXPoints, triangleYPoints, 3);
         
         this.setInputLight();
         
@@ -69,6 +79,66 @@ public class DrawPlane extends javax.swing.JPanel {
         g2d.setStroke(new BasicStroke(10));
         g2d.setColor(Color.white);
         g2d.drawLine(inputLightXPoints[0], inputLightYPoints[0], inputLightXPoints[1], inputLightYPoints[1]);
+        
+        for (SpectralLine m : lines) {
+            drawSpecralLine(m.wavelength, m.strength, m.n, g2d);
+            System.out.print("n "+m.n + "\n" );
+        }
+//        drawSpecralLine(700, 10, 1.9, g2d);
+    }
+    
+    public void drawSpecralLine(double lambda, double strenght, double refractive, Graphics2D g){
+        int positionXPoints[] = new int[2];
+        int positionYPoints[] = new int[2];
+        
+        positionXPoints[0] = inputLightXPoints[0];
+        positionYPoints[0] = inputLightYPoints[0];
+        
+        double insideAngle = Math.asin(Math.sin(Math.PI / 2 - impactAngle) / refractive);
+        
+        positionXPoints[1] = positionXPoints[0] + (int)(300 * Math.sin(Math.PI/2 + prismAngle - insideAngle));
+        positionYPoints[1] = positionYPoints[0] - (int)(300 * Math.cos(Math.PI/2 + prismAngle - insideAngle));
+        
+        double x1,x2,x3,x4;
+        double y1,y2,y3,y4;
+        x1 = (double) positionXPoints[0];
+        x2 = (double)positionXPoints[1];
+        x3 = (double)triangleXPoints[0];
+        x4 = (double)triangleXPoints[2];
+        y1 = (double)positionYPoints[0];
+        y2 = (double)positionYPoints[1];
+        y3 = (double)triangleYPoints[0];
+        y4 = (double)triangleYPoints[2];
+                
+        
+        double ua = ((x4 - x3)*(y1 - y3)-(y4 - y3)*(x1 - x3))/((y4 - y3)*(x2 - x1)-(x4 - x3)*(y2 - y1));
+        
+        int posX[] = new int[2];
+        int posY[] = new int[2];
+        
+        posX[0] = (int)(x1 + ua*(x2-x1));
+        posY[0] = (int)(y1 + ua*(y2-y1));
+        
+        g.setStroke(new BasicStroke(1));
+        int col[] = LightColor.waveLengthToRGB(lambda);
+        int alfa = (int)((strenght / 500) * 255);
+        g.setColor(new Color(col[0],col[1],col[2],alfa));
+        g.drawLine(positionXPoints[0], positionYPoints[0], posX[0], posY[0]);
+        
+        double outsideAngle = Math.asin(Math.sin(2*prismAngle - insideAngle) * refractive);
+//        System.out.print("in " + Math.toDegrees(insideAngle) + "\n" );
+//        System.out.print("out " + Math.toDegrees(outsideAngle) + "\n" );
+//        System.out.print("cely uhel: " + Math.toDegrees(Math.PI/2 + prismAngle - insideAngle) + "\n");
+        if(outsideAngle <= Math.asin(1/refractive)){
+        
+        double dist = 200 / Math.sin(Math.PI/2 - prismAngle + outsideAngle);
+        posX[1] = posX[0] + (int)(dist * Math.sin(Math.PI/2 - prismAngle + outsideAngle));
+        posY[1] = posY[0] - (int)(dist * Math.cos(Math.PI/2 - prismAngle + outsideAngle));
+        
+        g.drawLine(posX[0], posY[0], posX[1], posY[1]);
+        
+        g.drawLine(posX[1]+1, posY[1], posX[1] + 200, posY[1]);
+        }
     }
     
     private void setBaseWidth(){
@@ -98,7 +168,7 @@ public class DrawPlane extends javax.swing.JPanel {
     }
     
     public void setImpactAngle(double value){
-        impactAngle = Math.toRadians(value);
+        impactAngle = Math.PI / 2 - Math.toRadians(value);
         repaint();
     }
    

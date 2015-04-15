@@ -72,9 +72,4 @@ public class LightColor {
 
         return rgb;
     }
-    
-    public static void main(String args[]) {
-        System.out.println(LightColor.waveLengthToRGB(620)[2]);
-        
-    }
 }
