@@ -33,7 +33,8 @@ public class DrawPlane extends javax.swing.JPanel {
     int inputLightXPoints[];
     int inputLightYPoints[];
     
-    List<SpectralLine> lines;
+    List<List<SpectralLine>> lines;
+    List<Integer> lineTypes;
     
     
     int triangleWidth;
@@ -62,9 +63,11 @@ public class DrawPlane extends javax.swing.JPanel {
         impactAngleValue = p;
     }
     
-    public void getLines(List<SpectralLine> in){
+    public void getLines(List<List<SpectralLine>> in){
         lines = in;
+        repaint();
     }
+    
     
     @Override
     public void paint(Graphics g){
@@ -80,9 +83,16 @@ public class DrawPlane extends javax.swing.JPanel {
         g2d.setColor(Color.white);
         g2d.drawLine(inputLightXPoints[0], inputLightYPoints[0], inputLightXPoints[1], inputLightYPoints[1]);
         
-        for (SpectralLine m : lines) {
-            drawSpecralLine(m.wavelength, m.strength, m.n, g2d);
-            System.out.print("n "+m.n + "\n" );
+        if(lines != null)
+        {
+            
+            for (List<SpectralLine> a: lines)
+            {
+                for (SpectralLine m : a) {
+                    drawSpecralLine(m.wavelength, m.strength, m.n, g2d);
+                    System.out.print("n "+m.n + "\n" );
+                }
+            }
         }
 //        drawSpecralLine(700, 10, 1.9, g2d);
     }
