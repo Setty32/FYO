@@ -1,6 +1,7 @@
 package src;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -31,6 +32,7 @@ public class mainWindow extends javax.swing.JFrame {
     List<SpectralLine> siliconSpectrum;
     List<SpectralLine> sodiumSpectrum;
     List<SpectralLine> sulfurSpectrum;
+    List<List<SpectralLine>> spectrums;
     
     public mainWindow() {
         initComponents();
@@ -52,7 +54,8 @@ public class mainWindow extends javax.swing.JFrame {
         {
             System.err.println("Error");
         }
-        drawPlane1.getLines(neonSpectrum);
+        
+        spectrums = new ArrayList<List<SpectralLine>>();
         
         TriangleWidth.setMinimum(100);
         TriangleWidth.setMaximum(600);
@@ -142,6 +145,16 @@ public class mainWindow extends javax.swing.JFrame {
         label5.setText("Value set to:");
 
         jRadioButton1.setText("Hydrogen");
+        jRadioButton1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jRadioButton1StateChanged(evt);
+            }
+        });
+        jRadioButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jRadioButton1MouseClicked(evt);
+            }
+        });
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton1ActionPerformed(evt);
@@ -149,6 +162,11 @@ public class mainWindow extends javax.swing.JFrame {
         });
 
         jRadioButton2.setText("Helium");
+        jRadioButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jRadioButton2MouseClicked(evt);
+            }
+        });
         jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton2ActionPerformed(evt);
@@ -156,18 +174,53 @@ public class mainWindow extends javax.swing.JFrame {
         });
 
         jRadioButton3.setText("Carbon");
+        jRadioButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jRadioButton3MouseClicked(evt);
+            }
+        });
 
         jRadioButton4.setText("Lithium");
+        jRadioButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jRadioButton4MouseClicked(evt);
+            }
+        });
 
         jRadioButton5.setText("Neon");
+        jRadioButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jRadioButton5MouseClicked(evt);
+            }
+        });
 
         jRadioButton6.setText("Oxygen");
+        jRadioButton6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jRadioButton6MouseClicked(evt);
+            }
+        });
 
         jRadioButton7.setText("Silicon");
+        jRadioButton7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jRadioButton7MouseClicked(evt);
+            }
+        });
 
         jRadioButton8.setText("Sodium");
+        jRadioButton8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jRadioButton8MouseClicked(evt);
+            }
+        });
 
         jRadioButton9.setText("Sulfur");
+        jRadioButton9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jRadioButton9MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -262,13 +315,155 @@ public class mainWindow extends javax.swing.JFrame {
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
         // TODO add your handling code here:
+
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
         // TODO add your handling code here:
+
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
+    private void jRadioButton1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButton1StateChanged
+        
+    }//GEN-LAST:event_jRadioButton1StateChanged
+
+    private void jRadioButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButton1MouseClicked
+        if(jRadioButton1.isSelected())
+        {
+            spectrums.add(hydrogenSpectrum);        // TODO add your handling code here:
+        } else
+        {
+            spectrums.remove(hydrogenSpectrum);
+        }
+        drawPlane1.getLines(spectrums);
+    }//GEN-LAST:event_jRadioButton1MouseClicked
+
+    private void jRadioButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButton2MouseClicked
+        if(jRadioButton2.isSelected())
+        {
+            spectrums.add(heliumSpectrum);        // TODO add your handling code here:
+        } else
+        {
+            spectrums.remove(heliumSpectrum);
+        }
+        drawPlane1.getLines(spectrums);
+    }//GEN-LAST:event_jRadioButton2MouseClicked
+
+    private void jRadioButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButton3MouseClicked
+        if(jRadioButton3.isSelected())
+        {
+            spectrums.add(carbonSpectrum);        // TODO add your handling code here:
+        } else
+        {
+            spectrums.remove(carbonSpectrum);
+        }
+        drawPlane1.getLines(spectrums);
+    }//GEN-LAST:event_jRadioButton3MouseClicked
+
+    private void jRadioButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButton4MouseClicked
+        // TODO add your handling code here:
+                jRadioButton4MouseClicked2(evt);
+
+    }//GEN-LAST:event_jRadioButton4MouseClicked
+
+    private void jRadioButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButton5MouseClicked
+        // TODO add your handling code here:
+                jRadioButton5MouseClicked2(evt);
+
+    }//GEN-LAST:event_jRadioButton5MouseClicked
+
+    private void jRadioButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButton6MouseClicked
+        // TODO add your handling code here:
+                jRadioButton6MouseClicked2(evt);
+
+    }//GEN-LAST:event_jRadioButton6MouseClicked
+
+    private void jRadioButton7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButton7MouseClicked
+        // TODO add your handling code here:
+                jRadioButton7MouseClicked2(evt);
+
+    }//GEN-LAST:event_jRadioButton7MouseClicked
+
+    private void jRadioButton8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButton8MouseClicked
+        // TODO add your handling code here:
+                jRadioButton8MouseClicked2(evt);
+
+    }//GEN-LAST:event_jRadioButton8MouseClicked
+
+    private void jRadioButton9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButton9MouseClicked
+        // TODO add your handling code here:
+                jRadioButton9MouseClicked2(evt);
+
+    }//GEN-LAST:event_jRadioButton9MouseClicked
+  
+    
+    private void jRadioButton4MouseClicked2(java.awt.event.MouseEvent evt) {                                           
+        if(jRadioButton4.isSelected())
+        {
+            spectrums.add(lithiumSpectrum);        // TODO add your handling code here:
+        } else
+        {
+            spectrums.remove(lithiumSpectrum);
+        }
+        drawPlane1.getLines(spectrums);
+    }   
+    
+    private void jRadioButton5MouseClicked2(java.awt.event.MouseEvent evt) {                                           
+        if(jRadioButton5.isSelected())
+        {
+            spectrums.add(neonSpectrum);        // TODO add your handling code here:
+        } else
+        {
+            spectrums.remove(neonSpectrum);
+        }
+        drawPlane1.getLines(spectrums);
+    }   
+    
+     private void jRadioButton6MouseClicked2(java.awt.event.MouseEvent evt) {                                           
+        if(jRadioButton6.isSelected())
+        {
+            spectrums.add(oxygenSpectrum);        // TODO add your handling code here:
+        } else
+        {
+            spectrums.remove(oxygenSpectrum);
+        }
+        drawPlane1.getLines(spectrums);
+    }   
+     
+    private void jRadioButton7MouseClicked2(java.awt.event.MouseEvent evt) {                                           
+        if(jRadioButton7.isSelected())
+        {
+            spectrums.add(siliconSpectrum);        // TODO add your handling code here:
+        } else
+        {
+            spectrums.remove(siliconSpectrum);
+        }
+        drawPlane1.getLines(spectrums);
+    }   
+    
+     private void jRadioButton8MouseClicked2(java.awt.event.MouseEvent evt) {                                           
+        if(jRadioButton8.isSelected())
+        {
+            spectrums.add(sodiumSpectrum);        // TODO add your handling code here:
+        } else
+        {
+            spectrums.remove(sodiumSpectrum);
+        }
+        drawPlane1.getLines(spectrums);
+    }   
+     
+      private void jRadioButton9MouseClicked2(java.awt.event.MouseEvent evt) {                                           
+        if(jRadioButton9.isSelected())
+        {
+            spectrums.add(sulfurSpectrum);        // TODO add your handling code here:
+        } else
+        {
+            spectrums.remove(sulfurSpectrum);
+        }
+        drawPlane1.getLines(spectrums);
+    }   
     /**
+     * 
      * @param args the command line arguments
      */
     public static void main(String args[]) {
