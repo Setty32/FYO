@@ -79,7 +79,7 @@ public class DrawPlane extends javax.swing.JPanel {
         this.setInputLight();
         
         Graphics2D g2d = (Graphics2D)g;
-        g2d.setStroke(new BasicStroke(10));
+        g2d.setStroke(new BasicStroke(3));
         g2d.setColor(Color.white);
         g2d.drawLine(inputLightXPoints[0], inputLightYPoints[0], inputLightXPoints[1], inputLightYPoints[1]);
         
