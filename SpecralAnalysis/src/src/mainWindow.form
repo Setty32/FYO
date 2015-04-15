@@ -36,10 +36,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="TriangleWidth" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="TriangleWidth" min="-2" max="-2" attributes="0"/>
                                   <Component id="label1" min="-2" max="-2" attributes="0"/>
                                   <Group type="103" alignment="1" groupAlignment="0" attributes="0">
                                       <Component id="ImpactAngle" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -97,9 +94,7 @@
                   <Component id="label5" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="label6" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jRadioButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jRadioButton2" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -128,11 +123,6 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="jButton1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jButton1"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JSlider" name="TriangleWidth">
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JSlider()"/>
