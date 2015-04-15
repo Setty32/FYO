@@ -132,6 +132,9 @@ public class DrawPlane extends javax.swing.JPanel {
         g.setStroke(new BasicStroke(1));
         int col[] = LightColor.waveLengthToRGB(lambda);
         int alfa = (int)((strenght / 500) * 255);
+        if(alfa > 255){
+            alfa = 255;
+        }
         g.setColor(new Color(col[0],col[1],col[2],alfa));
         g.drawLine(positionXPoints[0], positionYPoints[0], posX[0], posY[0]);
         
